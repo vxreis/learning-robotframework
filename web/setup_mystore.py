@@ -2,7 +2,7 @@ import os, sys
 from time import gmtime, strftime
 
 
-def run_tests():
+def run_tests(browser):
     # Gerando doc com os casos de teste
     cmd = 'python -m robot.testdoc -N "Suite web My Store" tests testdoc.html'
     print(cmd)
@@ -12,7 +12,7 @@ def run_tests():
     dts = strftime('%Y.%m.%d.%H.%M.%S', gmtime())
 
     cmd = 'robot -d Results/Run%s -L trace' % dts  # Pasta onde vou salvar os relatórios
-    cmd += ' -v BROWSER:chrome'  # Browser que irei usar
+    cmd += ' -v BROWSER:%s' % browser   # Browser que irei usar
     cmd += ' tests'  # Pasta onde estão os suites de teste
     print(cmd)
     os.system(cmd)
@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     try:
         browser = sys.argv[1].lower()
+        print(browser)
         if browser.lower() in browsers:
             run_tests(browser)
         else:
