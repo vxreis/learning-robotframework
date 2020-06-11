@@ -25,3 +25,7 @@ Student detail
     And the middle name must be shown     ${MIDDLE_NAME}
     And the last name must be shown     ${LAST_NAME}
     And the date of birth must be shown     ${BIRTH_DATE}
+
+Delete student from list
+    Given the student will be deleted from the list
+    Then the student will no longer be shown

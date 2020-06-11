@@ -1,7 +1,7 @@
 *** Settings ***
 Library  RequestsLibrary
 Library  BuiltIn
-Library  json
+Library  JSONLibrary
 Library  Collections
 
 *** Variables ***
@@ -39,8 +39,6 @@ the system returns that it was successfully added
 the last registered student is consulted
     ${response}     Get Request    GET_SESSION     api/studentsDetails/${student_id}
     Set Test Variable      ${response}
-    Log To Console      ${response}
-    Log To Console      ${response.content}
 
 the name must be shown
     [Arguments]  ${name}
@@ -57,3 +55,14 @@ the last name must be shown
 the date of birth must be shown
     [Arguments]  ${bith_date}
     Dictionary Should Contain Item  ${response.json()["data"]}  ${FIELD_BIRTH_DATE}   ${bith_date}
+
+the student will be deleted from the list
+    ${response}     Delete Request    GET_SESSION     api/studentsDetails/${student_id}
+    Set Test Variable      ${response}
+
+the student will no longer be shown
+    ${response_json}     To Json     ${response.content}
+    @{status_list}      Get Value From Json     ${response_json}     status
+    ${status}      Get From List    ${status_list}  0
+    Should Be Equal   ${status}  true
+    Should Be Equal As Strings   ${response.status_code}  200
