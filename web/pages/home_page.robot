@@ -1,14 +1,15 @@
 *** Settings ***
 Library    BuiltIn
+Library    String
 Library    SeleniumLibrary
 
 *** Variables ***
-${BTN_SIGNIN}       css:div.user-info a
-${USER_LOGGED}      xpath://a[@class='account']//span[@class='hidden-sm-down']
-${PRODUCTS}         class:thumbnail-container
-${NUMBER_IN_THE_CART}  class:cart-products-count
-${PRODUCTS_NAME}     css:div.product-description a
-${PRODUCTS_PRICE}    class:price
+${BTN_SIGNIN}           css:div.user-info a
+${USER_LOGGED}          xpath://a[@class='account']//span[@class='hidden-sm-down']
+${PRODUCTS}             class:thumbnail-container
+${NUMBER_IN_THE_CART}   class:cart-products-count
+${PRODUCTS_NAME}        css:div.product-description a
+${PRODUCTS_PRICE}       class:price
 
 *** Keywords ***
 click the login button
@@ -28,17 +29,20 @@ number of items in the cart
     ${number}   Get Text    ${NUMBER_IN_THE_CART}
     [Return]    ${number.replace("(", "").replace(")", "")}
 
-get product name
+get product name from index
     [Arguments]  ${index}
     @{list_products}    Get Webelements     ${PRODUCTS_NAME}
-    [Return]    @{list_products[${index}]}
+    ${name}     Get Text    ${list_products[${index}]}
+    ${name}     Convert To Lower Case    ${name}
+    [Return]    ${name}
 
-get product price
+get product price from index
     [Arguments]  ${index}
     @{list_products}    Get Webelements     ${PRODUCTS_PRICE}
-    [Return]    @{list_products[${index}]}
+    ${price}     Get Text    ${list_products[${index}]}
+    [Return]    ${price.replace("$", "")}
 
-select product
+select product from index
     [Arguments]  ${index}
     @{list_products}    Get Webelements     ${PRODUCTS_NAME}
-    Click Element    @{list_products[${index}]}
+    Click Element    ${list_products[${index}]}
