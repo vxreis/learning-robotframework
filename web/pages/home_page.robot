@@ -26,8 +26,7 @@ count products from home
 
 number of items in the cart
     ${number}   Get Text    ${NUMBER_IN_THE_CART}
-    ${number.replace("(", "").replace(")", "")}
-    [Return]  ${number}
+    [Return]    ${number.replace("(", "").replace(")", "")}
 
 get product name
     [Arguments]  ${index}

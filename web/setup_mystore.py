@@ -1,32 +1,50 @@
-import os, sys
+import os
+import sys
+import argparse
 from time import gmtime, strftime
 
 
-def run_tests(browser):
+def run_tests(browser, tags):
     # Gerando doc com os casos de teste
     cmd = 'python -m robot.testdoc -N "Suite web My Store" tests testdoc.html'
-    print(cmd)
     os.system(cmd)
 
     # Executando
-    dts = strftime('%Y.%m.%d.%H.%M.%S', gmtime())
+    folder_name = strftime('%Y.%m.%d.%H.%M.%S', gmtime())
 
-    cmd = 'robot -d Results/Run%s -L trace' % dts  # Pasta onde vou salvar os relatórios
-    cmd += ' -v BROWSER:%s' % browser   # Browser que irei usar
+    # Organizando as tags
+    tag = ''
+    for t in tags.split(','):
+        tag += ' -i {0}'.format(t)
+
+    # Montando a execução do robot
+    cmd = 'robot {}'.format(tag)  # Inclusão das tags (se houver)
+    cmd += ' -d Results/Run{} -L trace'.format(folder_name)  # Pasta onde vou salvar os relatórios
+    cmd += ' -v BROWSER:{}'.format(browser)   # Browser que irei usar
     cmd += ' tests'  # Pasta onde estão os suites de teste
-    print(cmd)
+    print('Run robot: {}'.format(cmd))
     os.system(cmd)
 
 
 if __name__ == '__main__':
+    # Vamos pegar os parâmetros
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-b", help="Select what browser to run", default='chrome')
+    parser.add_argument("-t", help="Select tags to run", default='')
+    args = parser.parse_args()
+
+    browser_from_cmd = args.b
+    tags_from_cmd = args.t
+
     browsers = ['chrome', 'firefox', 'ie']
-    info = 'Informe um dos browsers: %s' % browsers
+    info = 'Informe os parâmetros corretamente' \
+           '\nExemplo: -p=<browser> -t=<tag1,tag2>' \
+           '\nBrowsers suportados: {0}'.format(browsers)
 
     try:
-        browser = sys.argv[1].lower()
-        print(browser)
-        if browser.lower() in browsers:
-            run_tests(browser)
+        browser_from_cmd = browser_from_cmd.lower()
+        if browser_from_cmd.lower() in browsers:
+            run_tests(browser_from_cmd, tags_from_cmd)
         else:
             print(info)
     except IndexError:

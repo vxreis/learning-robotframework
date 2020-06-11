@@ -10,5 +10,10 @@ Suite Teardown  Close Browser
 *** Test Cases ***
 Home page shows eight products
     [Tags]    home
-    Given that the user is on the home page
+    Given the user opens the main page
     Then eight products will be displayed
+
+Home page shows the cart empty
+    [Tags]    home  cart
+    Given the user opens the main page
+    Then the cart must be empty
