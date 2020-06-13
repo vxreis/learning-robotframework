@@ -6,6 +6,7 @@ Library  Collections
 
 *** Variables ***
 ${BASE_URL}             http://thetestingworldapi.com/
+${FIELD_ID}             id
 ${FIELD_FIRT_NAME}      first_name
 ${FIELD_MIDDLE_NAME}    middle_name
 ${FIELD_LAST_NAME}      last_name
@@ -66,3 +67,14 @@ the student will no longer be shown
     ${status}      Get From List    ${status_list}  0
     Should Be Equal   ${status}  true
     Should Be Equal As Strings   ${response.status_code}  200
+
+that student data is changed
+    [Arguments]     ${name}    ${middle_name}    ${last_name}      ${birth_date}
+    ${data}    Create Dictionary    ${FIELD_ID}=${student_id}    ${FIELD_FIRT_NAME}=${name}
+    ...     ${FIELD_MIDDLE_NAME}=${middle_name}     ${FIELD_LAST_NAME}=${last_name}     ${FIELD_BIRTH_DATE}=${birth_date}
+    ${response}     Put Request    GET_SESSION     api/studentsDetails/${student_id}    data=${data}    headers=${HEADERS}
+    Should Be Equal As Strings   ${response.status_code}  200
+
+the student is searched again
+    ${response}     Get Request    GET_SESSION     api/studentsDetails/${student_id}
+    Set Test Variable      ${response}
