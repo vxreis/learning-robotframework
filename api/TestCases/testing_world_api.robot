@@ -10,9 +10,9 @@ ${LAST_NAME}      R
 ${BIRTH_DATE}     11/04/1986
 
 *** Test Cases ***
-#List of students
-#    Given it is called the student list function
-#    Then a list will be returned containing all registered students
+List of students
+    Given it is called the student list function
+    Then a list will be returned containing all registered students
 
 Include student
     Given that the student data for the system is informed
