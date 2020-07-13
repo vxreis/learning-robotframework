@@ -3,7 +3,7 @@ Documentation    Login suite tests
 Resource    ../keywords/login_page_keywords.robot
 Resource    base_tests.robot
 Suite Setup  The page is open on  ${BROWSER}
-Suite Teardown  Close Browser
+Suite Teardown  Close session
 
 *** Variables ***
 ${USER}         marcelo@teste.com

@@ -15,7 +15,8 @@ def run_tests(browser, tags):
     # Organizando as tags
     tag = ''
     for t in tags.split(','):
-        tag += ' -i {0}'.format(t)
+        if t:
+            tag += ' -i {0}'.format(t)
 
     # Montando a execução do robot
     cmd = 'robot {}'.format(tag)  # Inclusão das tags (se houver)

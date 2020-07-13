@@ -8,3 +8,7 @@ ${url}      https://marcelodebittencourt.com/demoprestashop/
 The page is open on
     [Arguments]  ${BROWSER}
     Open Browser    ${url}   ${BROWSER}
+
+Close session
+    Capture Page Screenshot
+    Close Browser

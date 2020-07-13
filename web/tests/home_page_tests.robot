@@ -4,9 +4,7 @@ Resource    ../keywords/home_page_keywords.robot
 Resource    base_tests.robot
 Default Tags  home
 Suite Setup  The page is open on  ${BROWSER}
-Suite Teardown  Close Browser
-
-*** Variables ***
+Suite Teardown  Close session
 
 *** Test Cases ***
 Home page shows eight products
