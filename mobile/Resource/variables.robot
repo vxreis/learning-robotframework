@@ -1,6 +1,3 @@
-*** Settings ***
-Library     Collections
-
 *** Variables ***
 # Setup do device
 ${REMOTE_URL}          http://localhost:${PORT}/wd/hub
