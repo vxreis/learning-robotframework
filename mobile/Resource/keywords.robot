@@ -4,9 +4,16 @@ Library  BuiltIn
 Resource  variables.robot
 Resource  locators.robot 
 
+*** Variable ***
+&{CAPABILITIES}     &{CAPABILITIES_ANDROID}
+
 *** Keywords ***
 Open Youtube
-    Open Application    ${REMOTE_URL}   &{CAPABILITIES_ANDROID}
+    Run Keyword If      'iphone' in '''${DEVICE_NAME}'''    Set capabilitiy for iphone
+    Open Application    ${REMOTE_URL}   &{CAPABILITIES}
+
+Set capabilitiy for iphone
+    Set Global Variable     &{CAPABILITIES}     &{CAPABILITIES_IOS}
 
 Search about
     [Arguments]  ${word}
