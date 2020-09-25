@@ -39,11 +39,14 @@ def start_appium_server(result_path, udid, port, device_name):
     except:
         return
 
-    full_log_path = result_path + "\\appium.log"
+    full_log_path = result_path + "/appium.log"
 
-    cmd_line_appium_svr = 'appium --address 127.0.0.1 --port {0} ' \
-                          '--udid {1} --log {2} --log-timestamp --session-override'.format(port, udid,
-                                                                                           full_log_path)
+    if 'iphone' in device_name:
+        subprocess.check_call("osascript -e 'tell application \"Terminal\" to do script \"appium --address 127.0.0.1 --port {0} " \
+                            "--udid {1} --log {2} --log-timestamp --session-override\"'".format(port, udid, full_log_path), shell=True)
+    else:
+        cmd_line_appium_svr = 'appium --address 127.0.0.1 --port {0} ' \
+                            '--udid {1} --log {2} --log-timestamp --session-override'.format(port, udid, full_log_path)
 
     subprocess.check_call(["start", "cmd", "/k", cmd_line_appium_svr], shell=True)
 
