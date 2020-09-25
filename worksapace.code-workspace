@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"rfLanguageServer.libraries": [
+			"BuiltIn-3.1.1"
+		   ]
+	}
+}

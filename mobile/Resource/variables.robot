@@ -1,3 +1,6 @@
+*** Settings ***
+Variables   configVariables.py  CONFIG  ..//config.ini
+
 *** Variables ***
 # Setup do device
 ${REMOTE_URL}          http://localhost:${PORT}/wd/hub
@@ -22,5 +25,5 @@ ${APP}                 com.google.ios.youtube
 ...     automationName=XCUITest
 ...     udid=${UDID}
 ...     newCommandTimeout=3000
-...     xcodeOrgId=#######
-...     xcodeSigningId=#######
+...     xcodeOrgId=${CONFIG.iOS.xcodeOrgId}
+...     xcodeSigningId=${CONFIG.iOS.xcodeSigningId}

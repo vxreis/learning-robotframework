@@ -1,8 +1,8 @@
 *** Settings ***
-Library  AppiumLibrary
-Library  BuiltIn
-Resource  variables.robot
-Resource  locators.robot 
+Library    AppiumLibrary
+Library    BuiltIn
+Resource   variables.robot
+Resource   locators_android.robot
 
 *** Variable ***
 &{CAPABILITIES}     &{CAPABILITIES_ANDROID}
