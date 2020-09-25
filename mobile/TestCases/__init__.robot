@@ -5,6 +5,8 @@ Library  appiumConfig
 Suite Setup     Init test
 #Test Setup      Capture Screen Recording
 #Test Teardown   End Screen Recording
+Test Teardown  close application
+Metadata  1.0
 
 *** Keywords ***
 Init test

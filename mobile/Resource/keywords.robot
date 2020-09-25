@@ -2,10 +2,11 @@
 Library    AppiumLibrary
 Library    BuiltIn
 Resource   variables.robot
-Resource   locators_android.robot
+Resource   locators_${PLATFORM}.robot
 
 *** Variable ***
 &{CAPABILITIES}     &{CAPABILITIES_ANDROID}
+${PLATFORM}     android
 
 *** Keywords ***
 Open Youtube
@@ -14,6 +15,7 @@ Open Youtube
 
 Set capabilitiy for iphone
     Set Global Variable     &{CAPABILITIES}     &{CAPABILITIES_IOS}
+    Set Global Variable     ${PLATFORM}     ios
 
 Search about
     [Arguments]  ${word}
