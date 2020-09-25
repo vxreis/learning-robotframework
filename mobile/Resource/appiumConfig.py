@@ -48,7 +48,7 @@ def start_appium_server(result_path, udid, port, device_name):
         cmd_line_appium_svr = 'appium --address 127.0.0.1 --port {0} ' \
                             '--udid {1} --log {2} --log-timestamp --session-override'.format(port, udid, full_log_path)
 
-    subprocess.check_call(["start", "cmd", "/k", cmd_line_appium_svr], shell=True)
+        subprocess.check_call(["start", "cmd", "/k", cmd_line_appium_svr], shell=True)
 
 
 def rename_apk(app, device_name):
